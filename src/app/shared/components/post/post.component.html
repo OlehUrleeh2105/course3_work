@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-header">
+    <h2><span>{{ place.title }}</span><span [ngClass]="{'ver': place.verify}" class="mark"></span></h2>
+    <small>{{ whatPlaceType(place.placeType) }}</small>
+  </div>
+
+  <div class="place-address">
+    <span>{{ place.address }}</span>
+  </div>
+
+  <div class="last-line">
+    <div class="icons">
+      <div class="there">
+        <img src="/assets/icons/generator.svg" title="Наявність генератора">
+        <div [ngClass]="{'is': place.hasGenerator}"></div>
+      </div>
+      <div class="there">
+        <img src="/assets/icons/internet.svg" title="Наявність інтернету">
+        <div [ngClass]="{'is': place.hasInternet}"></div>
+      </div>
+      <div class="there">
+        <img src="/assets/icons/electricity.svg" title="Наявність електроенергії від мережі зараз">
+        <div [ngClass]="{'is': place.hasElectricityNow}"></div>
+      </div>
+    </div>
+    <button
+      [routerLink]="['/post', place.id]"
+      class="btn btn-dark"
+    >
+      Дізнатись
+    </button>
+  </div>
+</div>

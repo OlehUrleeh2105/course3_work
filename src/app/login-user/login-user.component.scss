@@ -1,0 +1,25 @@
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  border-style: solid;
+
+  input {
+    border: none;
+    border-bottom: 2px solid #ccc;
+
+    &:focus-visible {
+      outline: none;
+      border-bottom: 2.5px solid black
+    }
+  }
+
+  .form-control {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,59 @@
+<div class="filters">
+  <div class="reg">
+    <a routerLink="/forAll">Переглянути всі місця на карті (режим гостя)</a>
+  </div>
+  <div class="wrap-searching">
+    <input type="text" placeholder="Знайти місце за назвою" [(ngModel)]="searchStrName">
+    <input type="text" placeholder="Знайти місце за адерсою" [(ngModel)]="searchStr">
+  </div>
+  <div class="wrap-having">
+    <div>
+      <label for="isVerify">Чи перевірено:</label>
+      <select id="isVerify" [(ngModel)]="isVerify">
+        <option [ngValue]="false">Не важливо</option>
+        <option [ngValue]="true">Так</option>
+      </select>
+    </div>
+    <div>
+      <label for="placeType">Тип місця:</label>
+      <select id="placeType" [(ngModel)]="placeType">
+        <option [value]="''">Всі типи</option>
+        <option *ngFor="let type of placeTypes" [value]="type.key">{{type.value}}</option>
+      </select>
+    </div>
+    <div>
+      <label for="hasGenerator">Наявність генератора:</label>
+      <select id="hasGenerator" [(ngModel)]="hasGen">
+        <option [ngValue]="false">Не важливо</option>
+        <option [ngValue]="true">Так</option>
+      </select>
+    </div>
+    <div>
+      <label for="hasInternet">Наявність інтернету:</label>
+      <select id="hasInternet" [(ngModel)]="hasInt">
+        <option [ngValue]="false">Не важливо</option>
+        <option [ngValue]="true">Так</option>
+      </select>
+    </div>
+    <div>
+      <label for="hasElectricityNow">Наявність електроенергії зараз:</label>
+      <select id="hasElectricityNow" [(ngModel)]="hasElNow">
+        <option [ngValue]="false">Не важливо</option>
+        <option [ngValue]="true">Так</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="posts$ | async as posts; else loading"
+  class="posts"
+>
+  <app-post
+    *ngFor="let post of posts | searchPlaceMain: searchStr | searchNameMain: searchStrName | searchTypeMain: placeType| hasStuffMain: [hasGen, hasInt, hasElNow, isVerify]"
+    [place]="post"
+  ></app-post>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Завантаження...</p>
+</ng-template>

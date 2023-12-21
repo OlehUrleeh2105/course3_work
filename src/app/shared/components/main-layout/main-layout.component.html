@@ -1,0 +1,22 @@
+<nav class="navbar main">
+  <h1>
+    <span>Fkrsn</span>
+    <a (click)="logoutToAdmin($event)" title="Перейти на адмінку"><img src="/assets/icons/admin.svg"></a>
+  </h1>
+
+  <ul *ngIf="auth.isAuthenticated()">
+    <li routerLinkActive="active">
+      <a routerLink="main"><img src="/assets/icons/home.svg"></a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="add"><img src="/assets/icons/add.svg"></a>
+    </li>
+    <li>
+      <a href="#" (click)="logout($event)"><img src="/assets/icons/exit.svg"></a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

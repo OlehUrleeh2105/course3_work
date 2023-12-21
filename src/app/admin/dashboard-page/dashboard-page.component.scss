@@ -1,0 +1,27 @@
+.open {
+  margin-right: 10px;
+}
+
+table {
+  margin-top: 15px;
+  width: 100%;
+  tr {
+    > th, .chckd, .there {
+      text-align: center;
+    }
+    .there div {
+      margin: 0 auto;
+    }
+    .actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+    }
+  }
+}
+
+.t-cont {
+  overflow-y: auto;
+}

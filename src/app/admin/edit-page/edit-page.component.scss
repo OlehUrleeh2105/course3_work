@@ -1,0 +1,30 @@
+form {
+  max-width: 800px;
+  margin: 0 auto;
+  h1 {
+    @media (max-width: 768px) {
+      font-size: 24px;
+    }
+  }
+}
+
+.check-address {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  .btn {
+    margin: 0;
+    width: fit-content;
+    background-color: #333333;
+    color: white;
+  }
+  span {
+    font-size: 12px;
+  }
+}
+
+.map-wrap {
+  width: 100%;
+  margin-bottom: 0.8rem;
+}

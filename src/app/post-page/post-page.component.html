@@ -1,0 +1,63 @@
+<div *ngIf="place$ | async as place; else loading">
+  <div class="post">
+    <div class="header">
+      <h1><span>{{ place.title }}</span><span [ngClass]="{'ver': place.verify}" class="mark"></span></h1>
+      <button routerLink="/main" class="btn btn-link"><img src="/assets/icons/home.svg"></button>
+    </div>
+
+    <div class="icons">
+      <div class="there">
+        <img src="/assets/icons/generator.svg" title="Наявність генератора">
+        <div [ngClass]="{'is': place.hasGenerator}"></div>
+      </div>
+      <div class="there">
+        <img src="/assets/icons/internet.svg" title="Наявність інтернету">
+        <div [ngClass]="{'is': place.hasInternet}"></div>
+      </div>
+      <div class="there">
+        <img src="/assets/icons/electricity.svg" title="Наявність електроенергії від мережі зараз">
+        <div [ngClass]="{'is': place.hasElectricityNow}"></div>
+      </div>
+    </div>
+
+    <div class="info">
+      <strong>{{ place.address }}</strong>
+      <span>{{ whatPlaceType(place.placeType) }}</span>
+    </div>
+
+    <div class="map-wrap" id="map"></div>
+
+    <div *ngIf="place.description" class="description">
+      <span>Опис:</span>
+      <p class="content">{{ place.description }}</p>
+    </div>
+  </div>
+
+  <div class="comments">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-control">
+        <label for="comment">Залишити анонімний коментар:</label>
+        <textarea id="comment" formControlName="comment" rows="5" cols="20"></textarea>
+      </div>
+
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Добавити коментар
+      </button>
+    </form>
+
+    <div class="comments-by">
+      <span>Коментарі:</span>
+      <p *ngFor="let comment of place.comments.slice(1)">
+        <span>{{ comment }}</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Завантаження...</p>
+</ng-template>

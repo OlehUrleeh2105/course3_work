@@ -1,0 +1,59 @@
+.post {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+    }
+  }
+
+  .icons {
+    display: flex;
+    margin: 10px 0;
+    .there {
+      display: flex;
+      margin: 5px;
+      img {
+        width: 30px;
+        height: 30px;
+        margin: 0 10px;
+        @media (max-width: 768px) {
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
+
+  .info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .map-wrap {
+    margin: 0 auto;
+    width: 600px;
+    height: 400px;
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .description {
+    margin: 20px 0;
+    .content {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+  }
+}

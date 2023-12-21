@@ -1,0 +1,101 @@
+<div *ngIf="form; else loading">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div
+      class="form-control"
+      [ngClass]="{invalid: form.get('title')?.touched && form.get('title')?.invalid}"
+    >
+      <label for="title">Назва:</label>
+      <input id="title" type="text" formControlName="title" placeholder="Оазис">
+      <div
+        *ngIf="form.get('title')?.touched && form.get('title')?.invalid"
+        class="validation"
+      >
+        <small *ngIf="form.get('title')?.errors?.['required']">
+          Введіть назву
+        </small>
+      </div>
+    </div>
+
+    <div
+      class="form-control"
+      [ngClass]="{invalid: form.get('address')?.touched && form.get('address')?.invalid}"
+    >
+      <label for="address">Адреса:</label>
+      <input id="address" type="text" formControlName="address" (input)="isPlace = false" placeholder="вул. Бандери, 2, Хмельницький">
+      <div
+        *ngIf="form.get('address')?.touched && form.get('address')?.invalid"
+        class="validation"
+      >
+        <small *ngIf="form.get('address')?.errors?.['required']">
+          Введіть адресу
+        </small>
+      </div>
+    </div>
+
+    <div class="check-address">
+      <button type="button" class="btn" (click)="findPlace()">Знайти місце</button>
+      <span>Натисніть цю кнопку щоб перевірити адресу</span>
+    </div>
+
+    <div class="map-wrap" id="map"></div>
+
+    <div class="wrap-toggles">
+      <div class="form-control has-no">
+        <label for="hasGenerator">Наявність генератора:</label>
+        <input id="hasGenerator" type="checkbox" formControlName="hasGenerator">
+      </div>
+
+      <div class="form-control has-no">
+        <label for="hasInternet">Наявність інтернету:</label>
+        <input id="hasInternet" type="checkbox" formControlName="hasInternet">
+      </div>
+
+      <div class="form-control has-no">
+        <label for="hasElectricityNow">Наявність електроенергії зараз:</label>
+        <input id="hasElectricityNow" type="checkbox" formControlName="hasElectricityNow">
+      </div>
+
+      <div class="form-control has-no">
+        <label for="verify">Перевірено адміном:</label>
+        <input id="verify" type="checkbox" formControlName="verify">
+      </div>
+
+      <div class="form-control">
+        <label for="placeType">Тип місця:</label>
+        <select id="placeType" formControlName="placeType">
+          <option *ngFor="let type of placeTypes" [value]="type.key">{{type.value}}</option>
+        </select>
+        <div *ngIf="form.get('placeType')?.touched && form.get('placeType')?.invalid" class="validation">
+          <small *ngIf="form.get('placeType')?.errors?.['required']">Оберіть тип місця</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="description">Опис:</label>
+      <textarea id="description" formControlName="description" rows="10" cols="30"></textarea>
+    </div>
+
+    <div class="form-control">
+      <span>Анонімні коментарі:</span>
+      <div class="comments-by">
+        <p *ngFor="let comment of place.comments.slice(1); let i = index">
+          <span>{{ comment }}</span>
+          <a (click)="remove(i + 1)"><img src="./assets/icons/delete.svg">Видалити</a>
+        </p>
+      </div>
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="form.invalid || submitted || !isPlace"
+    >
+      Оновити
+    </button>
+  </form>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Завантаження...</p>
+</ng-template>

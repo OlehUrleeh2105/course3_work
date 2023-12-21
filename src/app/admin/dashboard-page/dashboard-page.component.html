@@ -1,0 +1,85 @@
+<div *ngIf="posts.length; else loading">
+  <div class="filters">
+    <div class="wrap-searching">
+      <input type="text" placeholder="Знайти місце за назвою" [(ngModel)]="searchStrName">
+      <input type="text" placeholder="Знайти місце за адерсою" [(ngModel)]="searchStr">
+    </div>
+    <div class="wrap-having">
+      <div>
+        <label for="isVerify">Чи перевірено:</label>
+        <select id="isVerify" [(ngModel)]="isVerify">
+          <option [ngValue]="false">Не важливо</option>
+          <option [ngValue]="true">Так</option>
+        </select>
+      </div>
+      <div>
+        <label for="placeType">Тип місця:</label>
+        <select id="placeType" [(ngModel)]="placeType">
+          <option [value]="''">Всі типи</option>
+          <option *ngFor="let type of placeTypes" [value]="type.key">{{type.value}}</option>
+        </select>
+      </div>
+      <div>
+        <label for="hasGenerator">Наявність генератора:</label>
+        <select id="hasGenerator" [(ngModel)]="hasGen">
+          <option [ngValue]="false">Не важливо</option>
+          <option [ngValue]="true">Так</option>
+        </select>
+      </div>
+      <div>
+        <label for="hasInternet">Наявність інтернету:</label>
+        <select id="hasInternet" [(ngModel)]="hasInt">
+          <option [ngValue]="false">Не важливо</option>
+          <option [ngValue]="true">Так</option>
+        </select>
+      </div>
+      <div>
+        <label for="hasElectricityNow">Наявність електроенергії зараз:</label>
+        <select id="hasElectricityNow" [(ngModel)]="hasElNow">
+          <option [ngValue]="false">Не важливо</option>
+          <option [ngValue]="true">Так</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="t-cont">
+    <table>
+      <thead>
+        <tr>
+          <th>Перевірено</th>
+          <th>Назва</th>
+          <th>Адреса</th>
+          <th>Тип</th>
+          <th title="Наявність генератора"><img class="icon-of-icon" src="./assets/icons/generator.svg"></th>
+          <th title="Наявність інтернету"><img class="icon-of-icon" src="./assets/icons/internet.svg"></th>
+          <th title="Наявність електроенергії від мережі зараз"><img class="icon-of-icon" src="./assets/icons/electricity.svg"></th>
+          <th>Дія</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of posts | searchPlace: searchStr | searchName: searchStrName | searchType: placeType | hasStuff: [hasGen, hasInt, hasElNow, isVerify]">
+          <td class="chckd"><div [ngClass]="{'ver': post.verify}" class="mark"></div></td>
+          <td>{{ post.title }}</td>
+          <td>{{ post.address }}</td>
+          <td>{{ whatPlaceType(post.placeType) }}</td>
+          <td class="there"><div [ngClass]="{'is': post.hasGenerator}"></div></td>
+          <td class="there"><div [ngClass]="{'is': post.hasInternet}"></div></td>
+          <td class="there"><div [ngClass]="{'is': post.hasElectricityNow}"></div></td>
+          <td class="actions">
+            <button
+              class="btn btn-link"
+              [routerLink]="['/admin', 'post', post.id, 'edit']"
+            >
+              <img class="icon-of-icon" src="./assets/icons/edit.svg">
+            </button>
+            <a (click)="remove(post.id)"><img class="icon-of-icon" src="./assets/icons/delete.svg"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Завантаження...</p>
+</ng-template>
